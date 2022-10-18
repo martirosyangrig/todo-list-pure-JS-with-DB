@@ -1,17 +1,17 @@
 {
   "todo": [
     {
-      "title": "learn js",
+      "title": "learn JS",
       "done": "true",
       "id": 1
     },
     {
-      "title": "learn ts",
+      "title": "learn TS",
       "done": "false",
       "id": 2
     },
     {
-      "title": "learn node.js",
+      "title": "learn Node",
       "done": "false",
       "id": 3
     }

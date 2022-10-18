@@ -66,90 +66,96 @@ fetch(url)
 	return data;
 })
 .then(data => {
-	const removeBtnsArray = document.querySelectorAll("[data-rm]");
-	removeBtnsArray.forEach(btn => {
-		btn.addEventListener("click", function () {
-			this.parentElement.remove();
-			data.forEach(todoObj => {
-				const fakeId = this.previousElementSibling.previousElementSibling.firstElementChild.textContent;
-
-				if (parseInt(fakeId) === todoObj.id) {
-					fetch(`${url}/${todoObj.id}`, {
-						method: "DELETE",
-						headers: {
-							"content-type" : "application/json"
-						}
+	
+	function removeList(){
+		const removeBtnsArray = document.querySelectorAll("[data-rm]");
+		removeBtnsArray.forEach(btn => {
+			btn.addEventListener("click", function () {
+				this.parentElement.remove();
+				data.forEach(todoObj => {
+					const fakeId = this.previousElementSibling.previousElementSibling.firstElementChild.textContent;
+	
+					if (parseInt(fakeId) === todoObj.id) {
+						fetch(`${url}/${todoObj.id}`, {
+							method: "DELETE",
+							headers: {
+								"content-type" : "application/json"
+							}
+						});
+					}
+				});
+			});
+		   
+		});
+	}
+	function activeInputeChange(){
+		const change = document.querySelectorAll("[data-cg]");
+    	const inp = document.querySelectorAll(".inp");
+		change.forEach((btn, id)=>{
+			btn.addEventListener("click", ()=>{
+				inp[id].classList.toggle("inp");
+			   
+			});
+		});
+	}
+	function changeListDb(){
+		const spanId = document.querySelectorAll(".todo_list_id");
+    	const inp = document.querySelectorAll(".inp");
+    	inp.forEach((inputs, id)=>{
+        	inputs.addEventListener("change", function (e){
+				const fakeId = parseInt(spanId[id].textContent);
+			
+            	fetch(`${url}/${fakeId}`, {   
+                	method: "PATCH",   
+                	headers: {     
+                    	"Content-Type": "application/json"   
+                	},   
+                	body: JSON.stringify({    
+                     	title: e.target.value
+                	}) 
+            	});    
+        	});
+    	});
+	}
+	function checkboxDbUpdate(){
+		const spanId = document.querySelectorAll(".todo_list_id")
+		const check = document.querySelectorAll("#check");
+		check.forEach((checkbox, id) =>{
+			checkbox.addEventListener("change", function (){
+				const fakeId = parseInt(spanId[id].textContent);
+				if(this.checked){
+					fetch(`${url}/${fakeId}`, {
+						method: "PATCH",
+						headers:{
+						"Content-Type": "application/json"
+						},
+						body: JSON.stringify({
+							done: "true"
+						})
 					});
 				}
 			});
 		});
-       
-	});
-    return data;
-})
-.then(data => {
-    const change = document.querySelectorAll("[data-cg]");
-    const inp = document.querySelectorAll(".inp");
-    change.forEach((btn, id)=>{
-        btn.addEventListener("click", ()=>{
-            inp[id].classList.toggle("inp");
-           
-        });
-    });
-
+	}
+	removeList();
+	activeInputeChange();
+	changeListDb();
+	checkboxDbUpdate();
     return data;
 })
 .then(date => {
-	const spanId = document.querySelectorAll(".todo_list_id");
-    const inp = document.querySelectorAll(".inp");
-    inp.forEach((inputs, id)=>{
-        inputs.addEventListener("change", function (e){
-			const fakeId = parseInt(spanId[id].textContent);
-			
-            fetch(`${url}/${fakeId}`, {   
-                method: "PATCH",   
-                headers: {     
-                    "Content-Type": "application/json"   
-                },   
-                body: JSON.stringify({    
-                     title: e.target.value
-                }) 
-            });    
-        });
-    });
-	return date;
-})
-.then(date =>{
-	const spanId = document.querySelectorAll(".todo_list_id")
-	const check = document.querySelectorAll("#check");
-	check.forEach((checkbox, id) =>{
-		checkbox.addEventListener("change", function (){
-			const fakeId = parseInt(spanId[id].textContent);
-			if(this.checked){
-				fetch(`${url}/${fakeId}`, {
-					method: "PATCH",
-					headers:{
-						"Content-Type": "application/json"
-					},
-					body: JSON.stringify({
-						done: "true"
-					})
-				});
+	function makeListDone(){
+		const change = document.querySelectorAll("[data-cg]");
+		const check = document.querySelectorAll("#check");
+		const inp = document.querySelectorAll(".inp");
+		date.forEach((todoObj, id) =>{
+			if(todoObj.done === "true"){
+				inp[id].style.color = "green";
+				check[id].checked = true;
+				check[id].disabled = true;
+				change[id].style.display = "none";
 			}
 		});
-	});
-	return date;
-})
-.then(date => {
-	const change = document.querySelectorAll("[data-cg]");
-	const check = document.querySelectorAll("#check");
-	const inp = document.querySelectorAll(".inp");
-	date.forEach((todoObj, id) =>{
-		if(todoObj.done === "true"){
-			inp[id].style.color = "green";
-			check[id].checked = true;
-			check[id].disabled = true;
-			change[id].style.display = "none";
-		}
-	});
+	}
+	makeListDone();
 });
