@@ -11,7 +11,7 @@ body {
 	background: #ddd;
 }
 
-#root #todo-form {
+#root {
 	padding: 30px;
 	background: #fff;
 	border-radius: 5px;
@@ -19,40 +19,42 @@ body {
 	margin: 0 auto;
 }
 
-#root #todo-form #screenBlock {
+#root #app-form #screenBlock {
 	display: flex;
 	margin-bottom: 24px;
 }
-
-#root #todo-form #screenBlock input {
+#root #app-form #screenBlock input {
 	padding: 10px;
 	border: 1px solid #ccc;
-	width: 100%;
 	border-radius: 5px 0px 0px 5px;
+	width: 100%;
 }
 
-#root #todo-form #screenBlock button {
-	background: #1a90ee;
-	color: #fff;
-	border: none;
+#root #app-form #screenBlock #screenAddBtn {
+	background: #1a91d2;
+	border-radius: 0px 5px 5px 0px;
 	padding: 0px 8px;
 	cursor: pointer;
-	border-radius: 0px 5px 5px 0px;
+	color: #fff;
+	border: none;
 }
-
-#root #todo-form #listsBlock .listsBlock__item {
+#listBlock{
 	display: flex;
-	justify-content: space-between;
+	flex-direction: column;
+}
+#root #listBlock .listsBlock_Item {
+	display: flex;
 	align-items: center;
-	margin-bottom: 16px;
+	justify-content: space-between;
+	margin-bottom: 12px;
 }
 
-#root #todo-form #listsBlock .listsBlock__item p span {
+#root #listBlock .listsBlock_Item p span {
+	display: none;
 	margin-right: 10px;
-	font-weight: bold;
 }
 
-#root #todo-form #listsBlock .listsBlock__item button {
+[data-rm] {
 	padding: 8px 12px;
 	cursor: pointer;
 	border: none;
@@ -61,8 +63,7 @@ body {
 	color: #fff;
 	transition: 0.3s;
 }
-
-#root #todo-form #listsBlock .listsBlock__item button:hover {
+[data-rm]:hover {
 	background: #d00111;
 }
 .todo_list_id{
@@ -73,6 +74,7 @@ body {
     cursor: pointer;
     pointer-events:none;
 }
+
 #text{
 	font-size: 19px;
 	margin-left: 5px;
@@ -89,4 +91,19 @@ body {
 
 .non_active_checkbox{
 	display: none;
+}
+
+
+
+h1 {
+	margin-bottom: 12px;
+	text-align: center;
+	color: #555;
+	letter-spacing: 1.5px;
+}
+
+p {
+	margin-bottom: 12px;
+	text-align: center;
+	color: #566;
 }
