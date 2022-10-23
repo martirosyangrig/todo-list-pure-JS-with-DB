@@ -62,7 +62,6 @@ function POST(){
 	
 		this.reset();
 	});
-	console.log(0);
 }
 function GET(){
 	return fetch(url)
