@@ -7,11 +7,11 @@
     },
     {
       "title": "learn ts",
-      "done": "false",
+      "done": "true",
       "id": 2
     },
     {
-      "title": "learn react",
+      "title": "learn react js",
       "done": "false",
       "id": 3
     }

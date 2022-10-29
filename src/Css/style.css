@@ -81,13 +81,21 @@ body {
 	font-family:cursive;
 }
 [data-cg]{
-    width: 20px;
-    
+	width: 14px;
+	height: 14px;
+	font-size: 10px;
+	cursor: pointer;
+	border: none;
+	border-radius: 3px;
+	background: #000000;
+	color: #fff;
+	transition: 0.3s;
+	margin-top: 10px;
 }
-[data-cg] img{
+/* [data-cg] img{
     width: 15px;
     height: 15px;
-}
+} */
 
 .non_active_checkbox{
 	display: none;
@@ -106,4 +114,29 @@ p {
 	margin-bottom: 12px;
 	text-align: center;
 	color: #566;
+}
+
+.show_cont{
+	display: flex;
+	justify-content: space-around;
+	margin-top: 15px;
+}
+.done_count{
+	display: flex;
+	text-align: center;
+	color:#44bdd0;
+	padding-top: 10px;
+}
+.show_cont button{
+	width: 80px;
+	height: 40px;
+	color:#ccc;
+	background-color: #566;
+	border-radius: 8px;
+	cursor: pointer;
+	
+}
+
+.show_cont button:hover{
+	background-color:rgb(60, 68, 68)
 }
