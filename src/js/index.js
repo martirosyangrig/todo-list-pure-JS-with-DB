@@ -1,7 +1,8 @@
 "use strict";
+const render = require("./components/Render");
+const Select = require("./components/Select");
 const UI = require("./components/UI");
 const Post = require("./components/Post");
-const Get = require("./components/Get");
 const Put = require("./components/Put");
 const Delete = require("./components/Delete");
 const Complete = require("./components/Complete");
@@ -12,38 +13,23 @@ const root = document.querySelector("#root");
 const url = "http://localhost:8888/todos"; 
 
 
-const{form, screenInput, listsBlock, fillterButtons} = UI;
+const{form, screenInput} = UI;
 UI.start();
 
 Post(form, screenInput, url)
 
 async function init(){
-	await Get(url, listsBlock );
-	Put( 
-		document.querySelectorAll(".todo_list_id"), 
-		document.querySelectorAll("[data-cg]"), 
-		document.querySelectorAll(".inp"), 
-		url 
+	await render(url, UI );
+	await Select(Put, Delete, Complete,ListDone, url );
+	await filterList(
+		document.querySelectorAll("[data-filter]"),
+	 	url, 
+	  	UI, 
+	  	Put, 
+	  	Delete, 
+	  	Complete, 
+	  	ListDone
 	)
-	Delete (
-		document.querySelectorAll("[data-rm]"), 
-		document.querySelectorAll(".todo_list_id"), 
-		url 
-	)
-	Complete (
-		document.querySelectorAll("#check"),  
-		document.querySelectorAll(".todo_list_id"),
-		url,
-		document.querySelectorAll("[data-cg]"),
-		document.querySelectorAll(".inp")
-	);
-	ListDone(
-		document.querySelectorAll("[data-cg]"),
-		document.querySelectorAll(".inp"),
-		document.querySelectorAll("#check"),
-		url
-
-	)
-	filterList(fillterButtons, url, listsBlock)
+	
 }
 init()

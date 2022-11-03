@@ -15,7 +15,5 @@ module.exports = function Post(form, screenInput, url){
 				})
 			});
 		}
-	
-		this.reset();
 	});
 }

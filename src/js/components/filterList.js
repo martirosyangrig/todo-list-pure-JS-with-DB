@@ -1,34 +1,29 @@
-const showAllComp = require("./filterButtons/showAllComplited")
-const showNoneComp = require("./filterButtons/showNoneComplited")
-const showAll = require("./filterButtons/showAll")
-module.exports = async function (listblock, url, listsBlock) {
-    let sum = 0
-    await fetch(url)
-    .then(data =>{
-        return data.json()
-    })
-    .then(data => {
-        
-        data.forEach(todo=>{
-            if(todo.done === "true"){
-                sum++
+const render = require("./Render");
+const Select = require("./Select")
+module.exports = async function (btnArr, url,Ui, Put, Delete, Complete, ListDone) {
+    btnArr.forEach(btn=>{
+        btn.addEventListener("click", ()=>{
+            Ui.listsBlock.innerHTML = ""
+            let filterURL;
+            if (btn.dataset.filter === "filterComplete") {
+                filterURL = `${url}?done=true`;
+                
+            } else if (btn.dataset.filter === "filterUnComplete") {
+                filterURL = `${url}/?done=false`;
+               
+            } else if (btn.dataset.filter === "filterAll") {
+                filterURL = url;
+                
+            }else if (btn.dataset.filter === "showdelet") {
+                filterURL = `http://localhost:8888/history`;
+               
             }
+            render(filterURL, Ui)
+            .then(()=>{
+                Select(Put, Delete, Complete, ListDone, filterURL)
+            })
+              
         })
-        listblock.innerHTML += `
-        <div class="show_cont">
-            <div class="done_count">
-                <span>${sum}/${data.length}</span>
-            </div>
-            
-            <button class="show">All complite</button>
-            <button class="show">Not complited</button>
-            <button class="show">Show all</button>
-        </div>
-    `
+        
     })
-
-    
-    showAllComp(document.querySelectorAll(".show"), url, listsBlock)
-    showNoneComp(document.querySelectorAll(".show"), url, listsBlock)
-    showAll(document.querySelectorAll(".show"), url, listsBlock)
 }
